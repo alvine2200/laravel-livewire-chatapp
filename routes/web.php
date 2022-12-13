@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Livewire\Chat\Main;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Chat\CreateChat;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::get('/users', CreateChat::class)->name('users');
+Route::get('/chat{key?}', Main::class)->name('chat');
+
+require __DIR__ . '/auth.php';
