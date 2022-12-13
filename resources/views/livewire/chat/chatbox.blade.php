@@ -1,13 +1,78 @@
 <div>
     <div class="chatbox_header">
-        header here
+        <div class="return">
+            <i class="bi bi-arrow-left"></i>
+        </div>
+
+        <div class="img_container">
+            <img src="https://picsum.photos/id/43/207/300" alt="profile">
+        </div>
+
+        <div class="name">
+            Alvine Llavu
+        </div>
+
+        <div class="info">
+            <div class="info_item">
+                <i class="bi bi-telephone-fill"></i>
+            </div>
+            <div class="info_item">
+                <i class="bi bi-image"></i>
+            </div>
+            <div class="info_item">
+                <i class="bi bi-info-circle-fill"></i>
+            </div>
+        </div>
     </div>
     <div class="chatbox_body">
-        Porro nihil hic deleniti labore, mollitia nemo ratione eius et eligendi cumque recusandae aliquam illum voluptates distinctio inventore numquam sapiente exercitationem laboriosam?
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio ex libero beatae eveniet, officiis deleniti saepe voluptate laborum dicta recusandae, quod molestiae, quisquam praesentium delectus natus consectetur nemo vel amet!
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, non alias magnam iure commodi consectetur est, earum magni possimus aut nemo maxime dolore architecto reiciendis nam a suscipit, fugiat consequuntur.
+        <div class="msg_body msg_body_receiver">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, molestiae, delectus beatae, suscipit
+            quaerat adipisci odio officiis ab repellat excepturi veritatis fugiat aspernatur soluta? Saepe, laborum!
+            Neque odit natus sed.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem et rerum omnis in consequatur praesentium iusto
+            sint unde. Explicabo sapiente quisquam libero ab sit sequi molestias unde odio dolorum ipsum!
+            <div class="msg_body_footer">
+                <div class="date">
+                    5 hrs ago
+                </div>
+                <div class="read">
+                    <i class="bi bi-check"></i>
+                </div>
+            </div>
+        </div>
+        <div class="msg_body msg_body_me">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, molestiae, delectus beatae, suscipit
+            quaerat adipisci odio officiis ab repellat excepturi veritatis fugiat aspernatur soluta? Saepe, laborum!
+            Neque odit natus sed.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem et rerum omnis in consequatur praesentium iusto
+            sint unde. Explicabo sapiente quisquam libero ab sit sequi molestias unde odio dolorum ipsum!
+            <div class="msg_body_footer">
+                <div class="date">
+                    5 hrs ago
+                </div>
+                <div class="read">
+                    <i class="bi bi-check"></i>
+                </div>
+            </div>
+        </div>
+        <div class="msg_body msg_body_me">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, molestiae, delectus beatae, suscipit
+            quaerat adipisci odio officiis ab repellat excepturi veritatis fugiat aspernatur soluta? Saepe, laborum!
+            Neque odit natus sed.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem et rerum omnis in consequatur praesentium iusto
+            sint unde. Explicabo sapiente quisquam libero ab sit sequi molestias unde odio dolorum ipsum!
+            <div class="msg_body_footer">
+                <div class="date">
+                    5 hrs ago
+                </div>
+                <div class="read">
+                    <i class="bi bi-check"></i>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="chatbox_footer">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, vitae sapiente similique deserunt quia perferendis earum quasi repellendus dignissimos? Mollitia, possimus nihil minima accusamus optio quibusdam non nostrum dicta aliquam.
+        @livewire('chat.send-message')
     </div>
+
 </div>
