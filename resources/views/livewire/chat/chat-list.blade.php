@@ -8,28 +8,34 @@
         </div>
     </div>
     <div class="chatlist_body">
-        <div class="chatlist_item">
-            <div class="chatlist_img_container">
-                <img src="https://picsum.photos/id/43/200/300" alt="profile">
-            </div>
-            <div class="chatlist_info">
-                <div class="top_row">
-                    <div class="list_username">
-                        Alvine Llavu
-                        <span class="date">
-                        2d
-                        </span>
+        @if (count($conversations) > 0)
+            @foreach ($conversations as $conversation)
+                <div class="chatlist_item">
+                    <div class="chatlist_img_container">
+                        <img src="https://picsum.photos/id/{{ $this->getChatUserInstance($conversation,$name='id') }}/200/300" alt="profile">
+                    </div>
+                    <div class="chatlist_info">
+                        <div class="top_row">
+                            <div class="list_username">
+                                {{ $this->getChatUserInstance($conversation,$name='name') }}
+                                <span class="date">
+                                    {{ $conversation->messages->last()?->created_at->shortAbsoluteDiffforHumans() }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="bottom_row">
+                            <div class="message_body text-truncate">
+                                {{ $conversation->messages->last()->body }}
+                            </div>
+                            <div class="unread_count">
+                                56
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="bottom_row">
-                    <div class="message_body text-truncate">
-                        Lorem ipsum dolor sit amet  Lorem ipsum dolor sit amet 
-                    </div>
-                    <div class="unread_count">
-                        56
-                    </div>
-                </div>
-            </div>
-        </div>
+            @endforeach
+        @else
+            You have no conversations
+        @endif
     </div>
 </div>
