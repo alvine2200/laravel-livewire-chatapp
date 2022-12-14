@@ -19,7 +19,7 @@
                             <div class="list_username">
                                 {{ $this->getChatUserInstance($conversation,$name='name') }}
                                 <span class="date">
-                                    {{ $conversation->messages->last()?->created_at->shortAbsoluteDiffforHumans() }}
+                                    {{ $conversation->messages->last()?->created_at->shortAbsoluteDiffForHumans() }}
                                 </span>
                             </div>
                         </div>
