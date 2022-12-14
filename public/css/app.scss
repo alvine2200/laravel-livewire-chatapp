@@ -1,50 +1,77 @@
-$header_height:60px;
-$footer_height:60px;
-$base_color:#4201f4;
+@import "breakpoints";
 
-.msg_body_me{
+$header_height: 60px;
+$footer_height: 60px;
+$base_color: #4201f4;
+
+.msg_body_me {
     background-color: rgb(250, 248, 248) !important;
-    margin-left:auto ;
+    margin-left: auto;
     border-bottom-left-radius: 0 !important;
 
-    .read {
+    ••••••• .read {
         // font-size: 15px;
         color: rgb(36, 35, 35);
     }
 }
 
-.msg_body_receiver{
+.msg_body_receiver {
     background: $base_color !important;
     color: white;
     border-bottom-right-radius: 0 !important;
+
     .read {
         // font-size: 15px;
         color: rgb(36, 35, 35);
     }
 }
 
-img{
+img {
     object-fit: cover;
 }
+
 .chat_container {
     position: fixed;
-    width: 95%;
-    left: 2.5%;
-    height: 85%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    height: 100%;
     border: 1px solid gray;
-    border-radius: 11px;
-    margin-top: 15px;
+    border-radius: 0;
+    margin-top: 0;
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     padding: 5px 6px;
+    z-index: 10;
+    background-color: white;
+
+    @include media('>tablet') {
+        top: unset;
+        height: 90%;
+    }
+
+    @include media(">desktop") {
+        position: fixed;
+        width: 95%;
+        left: 2.5%;
+        height: 85%;
+        border: 1px solid gray;
+        border-radius: 11px;
+        margin-top: 15px;
+    }
 }
 
 //chatlist
 .chat_list_container {
-    border-right: 1px solid grey;
+    border-right: 0;
     border-radius: inherit;
-    width: 25%;
+    width: 100%;
     height: 100%;
+
+    @include media('>tablet') {
+        width: 296px;
+        border-right: 1px solid grey;
+    }
 
     .chatlist_header {
         border-bottom: 1px solid grey;
@@ -52,63 +79,72 @@ img{
         display: flex;
         flex-wrap: nowrap;
 
-        .title{
+        .title {
             font-size: 19px;
             display: flex;
             padding: 5px 6px;
             align-items: center;
             justify-content: center;
             text-align: center;
-
-
         }
-        .img_container{
+
+        .img_container {
             margin-left: auto;
             margin-right: 2px;
             height: 45px;
             width: 45px;
             margin: auto;
 
-            img{
+            img {
                 width: 100%;
                 height: 100%;
                 border: 1px solid gray;
                 border-radius: 50%;
-
             }
         }
     }
 
     .chatlist_body {
-        .chatlist_item{
+        .chatlist_item {
             display: flex;
             flex-wrap: nowrap;
-            width: 100%;
+            width: 97%;
+            padding: 2px 8px;
+            margin: 9px 4px;
+            border-radius: 14px;
+            background-color: rgb(231, 231, 231);
+            cursor: pointer;
+            &:hover{
+                background-color:darken($color: rgb(231, 231, 231), $amount: 4%);
+            }
             .chatlist_img_container {
                 height: 47px;
                 width: 47px;
                 margin: auto;
                 margin-left: auto;
-                img{
+
+                img {
                     width: 100%;
                     height: 100%;
                     border-radius: 50%;
                 }
             }
-            .chatlist_info{
+
+            .chatlist_info {
                 width: 80%;
                 display: block;
                 padding: 2px 5px;
 
-                .top_row{
+                .top_row {
                     display: flex;
                     margin: 3px 0px;
 
-                    .list_username{
+                    .list_username {
                         font-size: 16px;
                         width: 80%;
                     }
-                    .date{
+
+                    .date {
                         font-size: 14px;
                         margin-left: 3rem;
                         margin-right: 3px;
@@ -116,85 +152,92 @@ img{
                 }
             }
 
-            .bottom_row{
+            .bottom_row {
                 display: flex;
                 flex-wrap: nowrap;
                 width: 100%;
 
-                .message_body{
-                    width:80%;
+                .message_body {
+                    width: 80%;
                     font-weight: lighter;
-                    font-family: 'Roboto';
+                    font-family: "Roboto";
                 }
 
-                .unread_count{
+                .unread_count {
                     margin-left: auto;
                     font-size: 12px;
-                    background-color: gainsboro;
-                    padding: 2px 5px; 
+                    // background-color: gainsboro;
+                    padding: 2px 7px;
+                    margin-top: 6px;
                     border-radius: 50%;
                     color: rgb(248, 3, 3);
                     font-weight: lighter;
                 }
             }
-
         }
-
     }
 }
 
 //chatbox
 .chat_box_container {
-    width: 75%;
+    width: 100%;
     height: 100%;
-    //border: 1px solid grey;
-    position:relative;
+    position: relative;
+
+    @include media('>tablet') {
+        width: calc(100% - 296px);
+        // border-right: 1px solid grey;
+    }
 
     .chatbox_header {
         width: 100%;
         position: absolute;
         border-bottom: 1px solid grey;
         height: 60px;
-        top:0;
+        top: 0;
         display: flex;
         flex-wrap: nowrap;
 
-        .img_container{
+        .img_container {
             height: 45px;
             width: 45px;
             margin: auto 0;
             margin-left: 4px;
 
-            img{
+            img {
                 width: 100%;
                 height: 100%;
                 border-radius: 50%;
             }
         }
 
-        .return{
+        .return {
             margin: auto 0;
             font-size: 21px;
             padding: 7px 11px;
             cursor: pointer;
         }
-        .name{
-            margin:auto 5px ;
+
+        .name {
+            margin: auto 5px;
             cursor: pointer;
         }
-        .info{
+
+        .info {
             display: flex;
             flex-wrap: nowrap;
             text-align: center;
             padding: 3px 5px;
             margin: auto 0 auto auto;
-            color:#0182f4 ;
+            color: #0182f4;
             font-size: 19px;
-            cursor: pointer; 
-            .info_item{
+            cursor: pointer;
+
+            .info_item {
                 margin: 1px 11px;
-                padding: 4px 7px ;
-                &:hover{
+                padding: 4px 7px;
+
+                &:hover {
                     color: lighten($color: $base_color, $amount: 18%);
                 }
             }
@@ -210,9 +253,9 @@ img{
         overflow-y: auto;
         padding: 17px 11px;
         height: 79%;
-        bottom: $footer_height + 3px ;
+        bottom: $footer_height + 3px;
 
-        .msg_body{
+        .msg_body {
             display: block;
             max-width: 80%;
             margin-top: 11px;
@@ -220,12 +263,13 @@ img{
             border-radius: 9px;
             padding: 4px 7px;
 
-            .msg_body_footer{
+            .msg_body_footer {
                 width: 100%;
                 display: flex;
                 justify-content: end;
                 align-items: right;
-                .date{
+
+                .date {
                     font-size: 12px;
                     padding-right: 7px;
                 }
@@ -243,7 +287,7 @@ img{
         flex-wrap: nowrap;
         background-color: white;
 
-        .custom_form_group{
+        .custom_form_group {
             display: flex;
             flex-wrap: nowrap;
             margin: auto 0;
@@ -258,13 +302,14 @@ img{
                 border-radius: 11px;
                 border: 0;
                 margin: auto 0;
-                &:focus{
+
+                &:focus {
                     box-shadow: none;
                     outline: none;
                     border-style: 0;
-
                 }
-            }            
+            }
+
             .submit {
                 width: 10% !important;
                 font-size: 17px;
@@ -274,6 +319,5 @@ img{
                 text-align: center;
             }
         }
-        
     }
 }
