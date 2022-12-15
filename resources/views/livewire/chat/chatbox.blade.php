@@ -8,7 +8,7 @@
             </div>
 
             <div class="img_container">
-                <img src="https://picsum.photos/id/{{ $receiverInstance->id }}/207/300" alt="profile">
+                <img src="https://ui-avatars.com/api/?name={{ $receiverInstance->name }}" alt="profile">
             </div>
 
             <div class="name">

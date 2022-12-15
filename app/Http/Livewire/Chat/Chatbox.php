@@ -26,6 +26,8 @@ class Chatbox extends Component
         $this->messages = Message::Where('conversation_id', $this->selectedConversation->id)
             ->skip($this->messages_count - $this->paginator_var)
             ->take($this->paginator_var)->get();
+        
+        $this->dispatchBrowserEvent('chatSelected');
     }
 
     public function render()
