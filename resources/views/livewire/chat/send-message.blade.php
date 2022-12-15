@@ -1,10 +1,13 @@
 <div>
-    <form action="">
-        <div class="chatbox_footer">
-            <div class="custom_form_group">
-                <input type="text" class="control" placeholder="Write Message ....">
-                <button type="submit" class="submit">Send</button>
+    @if ($selectedConversation)
+        <form wire:submit.prevent='sendMessage' action="">
+            <div class="chatbox_footer">
+                <div class="custom_form_group">
+                    <input wire:model="body" type="text" class="control" placeholder="Write Message ....">
+                    <button type="submit" class="submit">Send</button>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    @endif
+
 </div>

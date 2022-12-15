@@ -1,6 +1,5 @@
 <div>
 
-
     @if ($selectedConversation)
         <div class="chatbox_header">
             <div class="return">
@@ -13,7 +12,7 @@
 
             <div class="name">
                 {{ $receiverInstance->name }}
-            </div>
+            </div> 
 
             <div class="info">
                 <div class="info_item">
@@ -29,7 +28,7 @@
         </div>
         <div class="chatbox_body">
             @foreach ($messages as $message)
-                <div class="msg_body msg_body_receiver">
+                <div class="msg_body {{ Auth::user()->id == $message->sender_id ? 'msg_body_me':'msg_body_receiver' }}">
                 {{ $message->body }}
                 <div class="msg_body_footer">
                     <div class="date">
