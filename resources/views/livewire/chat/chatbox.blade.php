@@ -8,7 +8,7 @@
             </div>
 
             <div class="img_container">
-                <img src="https://picsum.photos/id/43/207/300" alt="profile">
+                <img src="https://picsum.photos/id/{{ $receiverInstance->id }}/207/300" alt="profile">
             </div>
 
             <div class="name">
@@ -28,26 +28,25 @@
             </div>
         </div>
         <div class="chatbox_body">
-            <div class="msg_body msg_body_receiver">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, molestiae, delectus beatae, suscipit
-                quaerat adipisci odio officiis ab repellat excepturi veritatis fugiat aspernatur soluta? Saepe, laborum!
-                Neque odit natus sed.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem et rerum omnis in consequatur praesentium
-                iusto
-                sint unde. Explicabo sapiente quisquam libero ab sit sequi molestias unde odio dolorum ipsum!
+            @foreach ($messages as $message)
+                <div class="msg_body msg_body_receiver">
+                {{ $message->body }}
                 <div class="msg_body_footer">
                     <div class="date">
-                        5 hrs ago
+                        {{ $message->created_at->format('m: i a') }}
                     </div>
                     <div class="read">
                         <i class="bi bi-check"></i>
                     </div>
                 </div>
             </div>
+            @endforeach
+            
         </div>
     @else
-
-    No conversation selected
+        <div class="fs-4 text-center text-primary mt-5">
+            No conversation selected
+        </div>
     @endif
 
     {{-- <div class="chatbox_footer">
