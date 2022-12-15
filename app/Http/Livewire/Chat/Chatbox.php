@@ -9,13 +9,29 @@ use App\Models\Conversation;
 
 class Chatbox extends Component
 {
+    public $height;
     public $receiver;
     public $messages;
     public $messages_count;
     public $selectedConversation;
     public $paginator_var = 10;
 
-    protected $listeners = ['loadConversation', 'pushMessage'];
+    protected $listeners = ['loadConversation', 'pushMessage', 'loadmore', 'updateHeight'];
+
+    public function updateHeight($height)
+    {
+        $this->height = $height;
+    }
+    public function loadmore()
+    {
+        $this->paginator_var = $this->paginator_var + 10;
+        $this->messages = Message::Where('conversation_id', $this->selectedConversation->id)
+            ->skip($this->messages_count - $this->paginator_var)
+            ->take($this->paginator_var)->get();
+
+        $height = $this->height;
+        $this->dispatchBrowserEvent('updatedHeight', ($height));
+    }
 
     public function pushMessage($messageId)
     {
