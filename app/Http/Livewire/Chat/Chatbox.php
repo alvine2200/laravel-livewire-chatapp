@@ -2,10 +2,12 @@
 
 namespace App\Http\Livewire\Chat;
 
+use App\Events\MessageSent;
 use App\Models\User;
 use App\Models\Message;
 use Livewire\Component;
 use App\Models\Conversation;
+use Illuminate\Support\Facades\Auth;
 
 class Chatbox extends Component
 {
@@ -16,8 +18,34 @@ class Chatbox extends Component
     public $selectedConversation;
     public $paginator_var = 10;
 
-    protected $listeners = ['loadConversation', 'pushMessage', 'loadmore', 'updateHeight'];
+    //protected $listeners = ['loadConversation', 'pushMessage', 'loadmore', 'updateHeight'];
 
+    public function getListeners()
+    {
+        $auth_id = Auth::user()->id;
+        return [
+            "echo-private:chat.{$auth_id},MessageSent" => "broadcastedMessageReceived",
+            'loadConversation', 'pushMessage', 'loadmore', 'updateHeight'
+        ];
+    }
+
+    public function broadcastedMessageReceived($event)
+    {
+        $broadcastedMessage=Message::find($event['message']);
+
+        if($this->selectedConversation)
+        {
+            if((int) $this->selectedConversation->id === (int) $event['conversation_id'])
+            {
+                // mark message as read
+                $broadcastedMessage->read=1;
+                $broadcastedMessage->save();
+
+                //pass message to push function to save it
+                $this->pushMessage($broadcastedMessage->id);
+            }
+        }
+    }
     public function updateHeight($height)
     {
         $this->height = $height;
