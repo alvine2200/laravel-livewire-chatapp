@@ -44,7 +44,7 @@ class SendMessage extends Component
 
     public function dispatchMessageSent()
     {
-        broadcast(new MessageSent(Auth::user(), $this->createdMessage, $this->selectedConversation, $this->receiverInstance));
+        broadcast(new MessageSent(auth()->user(), $this->createdMessage, $this->selectedConversation, $this->receiverInstance));
     }
     public function updateSendMessage(Conversation $conversation, User $receiver)
     {
