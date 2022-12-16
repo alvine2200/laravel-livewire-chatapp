@@ -4,15 +4,18 @@
             <h4>Chat List</h4>
         </div>
         <div class="img_container">
-            <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&&name={{ Auth::user()->name }}" alt="profile">
+            <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&&name={{ Auth::user()->name }}"
+                alt="profile">
         </div>
     </div>
     <div class="chatlist_body">
         @if (count($conversations) > 0)
             @foreach ($conversations as $conversation)
-                <div wire:key='{{ $conversation->id }}' class="chatlist_item" wire:click="$emit('chatUserSelected',{{ $conversation }}, {{ $this->getChatUserInstance($conversation, $name = 'id') }})" >
+                <div wire:key='{{ $conversation->id }}' class="chatlist_item"
+                    wire:click="$emit('chatUserSelected',{{ $conversation }}, {{ $this->getChatUserInstance($conversation, $name = 'id') }})">
                     <div class="chatlist_img_container">
-                        <img src="https://ui-avatars.com/api/?name={{ $this->getChatUserInstance($conversation, $name = 'name') }}" alt="profile">
+                        <img src="https://ui-avatars.com/api/?name={{ $this->getChatUserInstance($conversation, $name = 'name') }}"
+                            alt="profile">
                     </div>
                     <div class="chatlist_info">
                         <div class="top_row">
@@ -27,9 +30,13 @@
                             <div class="message_body text-truncate">
                                 {{ $conversation->messages->last()->body }}
                             </div>
-                            <div class="unread_count">
-                                56
-                            </div>
+
+                            @php
+                                if (count($conversation->messages->where('read', 0)->where('receiver_id',Auth::user()->id))) {
+                                    echo ' <div class="unread_count badge rounded-pill text-light bg-danger"> ' . count($conversation->messages->where('read', 0)->where('receiver_id',Auth::user()->id)) . '</div>';
+                                }
+                            @endphp
+
                         </div>
                     </div>
                 </div>
