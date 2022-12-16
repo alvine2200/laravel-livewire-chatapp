@@ -36,7 +36,19 @@
                             {{ $message->created_at->format('m: i a') }}
                         </div>
                         <div class="read">
-                            <i class="bi bi-check"></i>
+                            @php
+                                if($message->user->id === Auth::user()->id)
+                                {
+                                    if($message->read == 0)
+                                    {
+                                        echo '<i class="bi bi-check2 status_tick"></i>';
+                                    }
+                                    else{
+                                        echo '<i class="bi bi-check2-all text-primary "></i>';
+                                    }
+                                }
+                            @endphp
+                            {{-- <i class="bi bi-check"></i> --}}
                         </div>
                     </div>
                 </div>
@@ -71,7 +83,21 @@
             $('.chatbox_body').scrollTop($('.chatbox_body')[0].scrollHeight);
         });
     </script>
+    <script>
+        $(document).on('click','return',function(){
+            window.livewire.emit('resetcomponent');
+        })
+    </script>
 
+    <script>
+        window.addEventListener('markMessageRead',event=>{
+            const value=document.querySelectorAll('.status_tick');
+            value.array.forEach(element, index=> {
+                element.classlist.remove('bi bi-check2');
+                element.classlist.add('bi bi-check2-all','text-primary');
+            });
+        });
+    </script>
     {{-- <div class="chatbox_footer">
         @livewire('chat.send-message')
     </div> --}}

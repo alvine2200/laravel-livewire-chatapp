@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Chat;
 
+use App\Events\MessageRead;
 use App\Events\MessageSent;
 use App\Models\User;
 use App\Models\Message;
@@ -25,26 +26,48 @@ class Chatbox extends Component
         $auth_id = Auth::user()->id;
         return [
             "echo-private:chat.{$auth_id},MessageSent" => "broadcastedMessageReceived",
-            'loadConversation', 'pushMessage', 'loadmore', 'updateHeight'
+            "echo-private:chat.{$auth_id},MessageRead" => "broadcastedMessageRead",
+            'loadConversation', 'pushMessage', 'loadmore', 'updateHeight', 'broadcastMessageRead', 'resetcomponent'
         ];
     }
 
+    public function resetcomponent()
+    {
+        $this->selectedConversation = null;
+        $this->receiverInstance = null;
+    }
+
+    public function broadcastedMessageRead($event)
+    {
+        if ($this->selectedConversation) {
+            if ((int)$this->selectedConversation->id === (int) $event['conversation_id']) {
+                $this->dispatchBrowserEvent('markMessageRead');
+            }
+        }
+    }
     public function broadcastedMessageReceived($event)
     {
-        $broadcastedMessage=Message::find($event['message']);
+        //refresh the chatlist even when not selected
+        $this->emitTo('chat.chat-list', 'refresh');
+        $broadcastedMessage = Message::find($event['message']);
 
-        if($this->selectedConversation)
-        {
-            if((int) $this->selectedConversation->id === (int) $event['conversation_id'])
-            {
+        if ($this->selectedConversation) {
+            if ((int) $this->selectedConversation->id === (int) $event['conversation_id']) {
                 // mark message as read
-                $broadcastedMessage->read=1;
+                $broadcastedMessage->read = 1;
                 $broadcastedMessage->save();
 
                 //pass message to push function to save it
                 $this->pushMessage($broadcastedMessage->id);
+
+                $this->emitSelf('broadcastMessageRead');
             }
         }
+    }
+
+    public function broadcastMessageRead()
+    {
+        broadcast(new MessageRead($this->selectedConversation->id, $this->receiverInstance->id));
     }
     public function updateHeight($height)
     {
@@ -79,6 +102,12 @@ class Chatbox extends Component
             ->take($this->paginator_var)->get();
 
         $this->dispatchBrowserEvent('chatSelected');
+
+        //update all messages as read on user side
+        Message::where('conversation_id', $this->selectedConversation->id)
+            ->where('receiver_id', Auth::user()->id)->update(['read' => 1]);
+
+        $this->emitSelf('broadcastMessageRead');
     }
 
     public function render()

@@ -15,8 +15,13 @@ class ChatList extends Component
     public $receiverInstance;
     public $selectedConversation;
 
-    protected $listeners = ['chatUserSelected', 'refresh' => '$refresh'];
+    protected $listeners = ['chatUserSelected', 'refresh' => '$refresh','resetcomponent'];
 
+    public function resetcomponent()
+    {
+        $this->selectedConversation=null;
+        $this->receiverInstance=null;
+    }
     public function chatUserSelected(Conversation $conversation, $receiverId)
     {
         // dd($conversation, $receiverId);
